@@ -1,10 +1,11 @@
 ﻿using GerenciamentoBiblioteca.Core.Entities;
+using GerenciamentoBiblioteca.Core.Models;
 using GerenciamentoBiblioteca.Core.Repositories;
 using MediatR;
 
 namespace GerenciamentoBiblioteca.Application.Queries.GetByIdUsuario
 {
-    public class GetByIdUsuarioHandler : IRequestHandler<GetByIdUsuarioCommand, GetByIdUsuarioViewModel>
+    public class GetByIdUsuarioHandler : IRequestHandler<GetByIdUsuarioCommand, ResultViewModel<GetByIdUsuarioViewModel>>
     {
         private readonly IUsuarioRepository _usuariorepository;
 
@@ -13,18 +14,18 @@ namespace GerenciamentoBiblioteca.Application.Queries.GetByIdUsuario
             _usuariorepository = usuariorepository;
         }
 
-        public async Task<GetByIdUsuarioViewModel> Handle(GetByIdUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<GetByIdUsuarioViewModel>> Handle(GetByIdUsuarioCommand request, CancellationToken cancellationToken)
         {
             Usuario usuario = await _usuariorepository.GetByIdUsuarioAsync(request.Id);
 
-            if (usuario == null)
+            if (usuario is null)
             {
-                return null;
+                return ResultViewModel<GetByIdUsuarioViewModel>.Error("Usuário não encontrado");
             }
 
             GetByIdUsuarioViewModel usuarioViewModel = new GetByIdUsuarioViewModel(usuario.Id, usuario.Nome, usuario.Email);
 
-            return usuarioViewModel;
+            return ResultViewModel<GetByIdUsuarioViewModel>.Sucess(usuarioViewModel);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using GerenciamentoBiblioteca.Core.Entities;
+using GerenciamentoBiblioteca.Core.Models;
 using GerenciamentoBiblioteca.Core.Repositories;
 using MediatR;
 
 namespace GerenciamentoBiblioteca.Application.Commands.DeletarUsuario
 {
-    public class DeletarUsuarioHandler : IRequestHandler<DeletarUsuarioCommand, Unit>
+    public class DeletarUsuarioHandler : IRequestHandler<DeletarUsuarioCommand, ResultViewModel>
     {
         private readonly IUsuarioRepository _usuariorepository;
 
@@ -13,17 +14,18 @@ namespace GerenciamentoBiblioteca.Application.Commands.DeletarUsuario
             _usuariorepository = usuariorepository;
         }
 
-        public async Task<Unit> Handle(DeletarUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(DeletarUsuarioCommand request, CancellationToken cancellationToken)
         {
             Usuario usuario = await _usuariorepository.GetByIdUsuarioAsync(request.Id);
 
-            if(usuario is null)
+            if (usuario is null)
             {
-                return Unit.Value;
+                return ResultViewModel.Error("Usuáro não encontrado");
             }
+
             await _usuariorepository.DeletarUsuarioAsync(usuario);
 
-            return Unit.Value;
+            return ResultViewModel.Sucess();
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using GerenciamentoBiblioteca.Core.Models;
+using MediatR;
 
 namespace GerenciamentoBiblioteca.Application.Commands.CreateLivro
 {
-    public class CreateLivroCommand : IRequest<int>
+    public class CreateLivroCommand : IRequest<ResultViewModel<int>>
     {
         public CreateLivroCommand(string titulo, string emailAddress, string iSBN, int anoPublicacao)
         {

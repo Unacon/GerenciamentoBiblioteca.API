@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using GerenciamentoBiblioteca.Core.Models;
+using MediatR;
 
 namespace GerenciamentoBiblioteca.Application.Commands.DeletarLivro
 {
-    public class DeletarLivroCommand : IRequest<Unit>
+    public class DeletarLivroCommand : IRequest<ResultViewModel>
     {
         public DeletarLivroCommand(int id)
         {

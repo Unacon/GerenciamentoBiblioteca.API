@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using GerenciamentoBiblioteca.Core.Models;
+using MediatR;
 
 namespace GerenciamentoBiblioteca.Application.Commands.CreateUsuario
 {
-    public class CreateUsuarioCommand : IRequest<int>
+    public class CreateUsuarioCommand : IRequest<ResultViewModel<int>>
     {
         public CreateUsuarioCommand(string nome, string email)
         {

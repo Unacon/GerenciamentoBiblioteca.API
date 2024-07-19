@@ -4,9 +4,11 @@ using GerenciamentoBiblioteca.Application.Commands.DeletarUsuario;
 using GerenciamentoBiblioteca.Application.Queries.GetAllUsuario;
 using GerenciamentoBiblioteca.Application.Queries.GetByIdUsuario;
 using GerenciamentoBiblioteca.Core.Entities;
+using GerenciamentoBiblioteca.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 
 namespace GerenciamentoBiblioteca.API.Controllers
 {
@@ -22,47 +24,55 @@ namespace GerenciamentoBiblioteca.API.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsuarios()
-        {   
-            GetAllUsuarioCommand request = new GetAllUsuarioCommand();
-            List<GetAllUsuarioViewModel> usuarios = await _mediator.Send(request);
+        {
+            ResultViewModel<List<GetAllUsuarioViewModel>> result = await _mediator.Send(new GetAllUsuarioCommand());
 
-            if (usuarios.IsNullOrEmpty())
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return NotFound(result.Message);
             }
 
-            return Ok(usuarios);
+            return Ok(result.Data);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdUsuario(int id)
         {
-            GetByIdUsuarioCommand request = new GetByIdUsuarioCommand(id);
-            GetByIdUsuarioViewModel usuario = await _mediator.Send(request);
+            ResultViewModel<GetByIdUsuarioViewModel> result = await _mediator.Send(new GetByIdUsuarioCommand(id));
 
-            if(usuario == null)
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return NotFound(result.Message);
             }
 
-            return Ok(usuario);
+            return Ok(result.Data);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletarUsuario(int id)
         {
-            DeletarUsuarioCommand request = new DeletarUsuarioCommand(id);
-            await _mediator.Send(request);
-           
+            ResultViewModel result = await _mediator.Send(new DeletarUsuarioCommand(id));
+
+            if (!result.IsSucess)
+            {
+                return BadRequest(result.Message);
+            }
+
             return NoContent();
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateUsuario([FromBody] CreateUsuarioCommand request)
         {
-            int idUsuario = await _mediator.Send(request);
+            ResultViewModel<int> result = await _mediator.Send(request);
 
-            return CreatedAtAction(nameof(GetByIdUsuario), new { id = idUsuario }, request);
+            if (!result.IsSucess)
+            {
+                return BadRequest(result.Message);
+            }
+            CreateUsuarioViewModel usuarioViewModel = new CreateUsuarioViewModel(result.Data, request.Nome,request.Email);
+
+            return CreatedAtAction(nameof(GetByIdUsuario), new { id = result.Data }, usuarioViewModel);
         }
     }
 }

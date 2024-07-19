@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using GerenciamentoBiblioteca.Core.Entities;
+using GerenciamentoBiblioteca.Core.Models;
+using MediatR;
 
 namespace GerenciamentoBiblioteca.Application.Commands.DeletarUsuario
 {
-    public class DeletarUsuarioCommand : IRequest<Unit>
+    public class DeletarUsuarioCommand : IRequest<ResultViewModel>
     {
         public DeletarUsuarioCommand(int id)
         {

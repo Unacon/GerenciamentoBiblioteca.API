@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciamentoBiblioteca.Infrastructure.Pesistence.Migrations
 {
     [DbContext(typeof(GerenciamentoBibliotecaDbContext))]
-    [Migration("20240713202957_SegundaMigracao")]
-    partial class SegundaMigracao
+    [Migration("20240719214756_PrimeiraMigration")]
+    partial class PrimeiraMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

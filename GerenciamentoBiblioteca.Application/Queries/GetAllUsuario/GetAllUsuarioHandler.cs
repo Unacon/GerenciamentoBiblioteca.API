@@ -1,11 +1,13 @@
 ﻿using GerenciamentoBiblioteca.Core.Entities;
+using GerenciamentoBiblioteca.Core.Models;
 using GerenciamentoBiblioteca.Core.Repositories;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 
 namespace GerenciamentoBiblioteca.Application.Queries.GetAllUsuario
 {
-    public class GetAllUsuarioHandler : IRequestHandler<GetAllUsuarioCommand, List<GetAllUsuarioViewModel>>
+    public class GetAllUsuarioHandler : IRequestHandler<GetAllUsuarioCommand, ResultViewModel<List<GetAllUsuarioViewModel>>>
     {
         private readonly IUsuarioRepository _usuariorepository;
 
@@ -14,18 +16,18 @@ namespace GerenciamentoBiblioteca.Application.Queries.GetAllUsuario
             _usuariorepository = usuariorepository;
         }
 
-        public async Task<List<GetAllUsuarioViewModel>> Handle(GetAllUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<List<GetAllUsuarioViewModel>>> Handle(GetAllUsuarioCommand request, CancellationToken cancellationToken)
         {
             List<Usuario> usuarios = await _usuariorepository.GetAllUsuarioAsync();
 
             if (usuarios.IsNullOrEmpty())
             {
-                return null;
+                return ResultViewModel<List<GetAllUsuarioViewModel>>.Error("Nenhum usuário encontrado");
             }
 
             List<GetAllUsuarioViewModel> usuariosViewModel = usuarios.Select(u => new GetAllUsuarioViewModel(u.Id, u.Nome, u.Email)).ToList();
 
-            return usuariosViewModel;
+            return ResultViewModel<List<GetAllUsuarioViewModel>>.Sucess(usuariosViewModel);
         }
     }
 }

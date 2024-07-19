@@ -1,7 +1,6 @@
+using GerenciamentoBiblioteca.Application;
 using GerenciamentoBiblioteca.Application.Queries.GetAllLivros;
-using GerenciamentoBiblioteca.Core.Repositories;
 using GerenciamentoBiblioteca.Infrastructure.Pesistence;
-using GerenciamentoBiblioteca.Infrastructure.Pesistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,8 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetAllLivrosQuery).Assembly));
 
-builder.Services.AddScoped<ILivrosRepository, LivrosRepository>();
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddAplication();
 
 string connectionString = builder.Configuration.GetConnectionString("GerenciamentoBiblioteca");
 builder.Services.AddDbContext<GerenciamentoBibliotecaDbContext>(
