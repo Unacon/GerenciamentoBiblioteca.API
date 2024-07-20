@@ -27,6 +27,7 @@ namespace GerenciamentoBiblioteca.Infrastructure.Pesistence.Repositories
         public async Task<Livro> GetByIdAsync(int id)
         {
             return await _dbContext.Livro
+                .Include(item => item.Emprestimos)
                 .SingleOrDefaultAsync(l => l.Id == id);
         }
         public async Task DeletarLivro(Livro livro)

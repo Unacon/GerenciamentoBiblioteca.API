@@ -23,6 +23,10 @@ namespace GerenciamentoBiblioteca.Application.Commands.DeletarLivro
                 return ResultViewModel.Error("Livro não encontrado");
             }
 
+            if (livro.Emprestimos.Count() > 0) {
+                return ResultViewModel.Error("Não é possível deletar um livro que já foi emprestado");
+            }
+
             await _livrosRepository.DeletarLivro(livro);
 
             return ResultViewModel.Sucess();

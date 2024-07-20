@@ -21,6 +21,16 @@ namespace GerenciamentoBiblioteca.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUsuario([FromBody] CreateUsuarioCommand request)
         {
+            if (!ModelState.IsValid)
+            {
+                List<string> messages = ModelState
+                    .SelectMany(ms => ms.Value.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return BadRequest(messages);
+            }
+
             ResultViewModel<int> result = await _mediator.Send(request);
 
             if (!result.IsSucess)
