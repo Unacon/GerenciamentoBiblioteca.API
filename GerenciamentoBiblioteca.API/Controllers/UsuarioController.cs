@@ -1,5 +1,6 @@
 ﻿using GerenciamentoBiblioteca.Application.Commands.CreateUsuario;
 using GerenciamentoBiblioteca.Application.Commands.InativarUsuario;
+using GerenciamentoBiblioteca.Application.Commands.ReativarUsuario;
 using GerenciamentoBiblioteca.Application.Queries.GetAllUsuario;
 using GerenciamentoBiblioteca.Application.Queries.GetByIdUsuario;
 using GerenciamentoBiblioteca.Core.Models;
@@ -79,7 +80,7 @@ namespace GerenciamentoBiblioteca.API.Controllers
         [HttpPut("{id}/ativar")]
         public async Task<IActionResult> AtivarUsuario(int id)
         {
-            ResultViewModel result = await _mediator.Send(new InativarUsuarioCommand(id));
+            ResultViewModel result = await _mediator.Send(new ReativarUsuarioCommand(id));
 
             if (!result.IsSucess)
             {

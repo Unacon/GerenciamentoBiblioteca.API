@@ -26,7 +26,8 @@ namespace GerenciamentoBiblioteca.Infrastructure.Pesistence.Repositories
 
         public async Task<Emprestimo> GetByIdEmprestimo(int id)
         {
-            return await _dbContext.Emprestimo.SingleOrDefaultAsync(u => u.Id == id);
+            return await _dbContext.Emprestimo
+                .SingleOrDefaultAsync(u => u.Id == id);
         }
     }
 }

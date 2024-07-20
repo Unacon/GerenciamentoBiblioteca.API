@@ -18,12 +18,12 @@ namespace GerenciamentoBiblioteca.Application.Commands.DevolverEmprestimo
         {
             Emprestimo emprestimo = await _emprestimoRepository.GetByIdEmprestimo(request.Id);
 
-            if(emprestimo is null)
+            if (emprestimo is null)
             {
                 return ResultViewModel.Error("Empréstimo não encontrado.");
             }
 
-            if(emprestimo.DataDevolucao is not null)
+            if (emprestimo.DataDevolucao is not null)
             {
                 return ResultViewModel.Error("Empréstimo já foi devolvido.");
             }
@@ -31,8 +31,15 @@ namespace GerenciamentoBiblioteca.Application.Commands.DevolverEmprestimo
             emprestimo.Devolucao();
             await _emprestimoRepository.AtualizarEmprestimo();
 
-            return ResultViewModel.Sucess();
-            
+            if (emprestimo.DataPrevistaDaDevolucao > DateTime.Now)
+            {
+                TimeSpan diasAtrasado = emprestimo.DataPrevistaDaDevolucao.Subtract(DateTime.Now);
+                return ResultViewModel.Sucess("Devolução feita com " + diasAtrasado + " de atraso");
+            }
+            else
+            {
+                return ResultViewModel.Sucess("Devolução em dia.");
+            }
         }
     }
 }

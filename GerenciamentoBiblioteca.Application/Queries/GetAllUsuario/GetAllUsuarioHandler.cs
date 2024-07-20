@@ -25,7 +25,7 @@ namespace GerenciamentoBiblioteca.Application.Queries.GetAllUsuario
                 return ResultViewModel<List<GetAllUsuarioViewModel>>.Error("Nenhum usuário encontrado");
             }
 
-            List<GetAllUsuarioViewModel> usuariosViewModel = usuarios.Select(u => new GetAllUsuarioViewModel(u.Id, u.Nome, u.Email)).ToList();
+            List<GetAllUsuarioViewModel> usuariosViewModel = usuarios.Select(u => new GetAllUsuarioViewModel(u.Id, u.Nome, u.Email,u.Ativo)).ToList();
 
             return ResultViewModel<List<GetAllUsuarioViewModel>>.Sucess(usuariosViewModel);
         }

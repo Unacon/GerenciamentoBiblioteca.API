@@ -23,7 +23,7 @@ namespace GerenciamentoBiblioteca.Application.Queries.GetByIdUsuario
                 return ResultViewModel<GetByIdUsuarioViewModel>.Error("Usuário não encontrado");
             }
 
-            GetByIdUsuarioViewModel usuarioViewModel = new GetByIdUsuarioViewModel(usuario.Id, usuario.Nome, usuario.Email);
+            GetByIdUsuarioViewModel usuarioViewModel = new GetByIdUsuarioViewModel(usuario.Id, usuario.Nome, usuario.Email, usuario.Ativo);
 
             return ResultViewModel<GetByIdUsuarioViewModel>.Sucess(usuarioViewModel);
         }

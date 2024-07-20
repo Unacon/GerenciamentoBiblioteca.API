@@ -28,6 +28,7 @@ namespace GerenciamentoBiblioteca.Application.Commands.ReativarUsuario
                 return ResultViewModel.Error("Usuário já consta ativo.");
             }
 
+            usuario.AtivarUsuario();
             await _usuarioRepository.AtualizarUsuarioAsync(usuario);
 
             return ResultViewModel.Sucess();

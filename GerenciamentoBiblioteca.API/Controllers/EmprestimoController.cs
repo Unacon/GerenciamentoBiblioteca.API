@@ -69,7 +69,7 @@ namespace GerenciamentoBiblioteca.API.Controllers
                 return BadRequest(result.Message);
             }
 
-            return NoContent();
+            return Ok(result.Message);
         }
     }
 }

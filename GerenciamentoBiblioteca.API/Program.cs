@@ -2,6 +2,7 @@ using GerenciamentoBiblioteca.Application;
 using GerenciamentoBiblioteca.Application.Queries.GetAllLivros;
 using GerenciamentoBiblioteca.Infrastructure.Pesistence;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<GerenciamentoBibliotecaDbContext>(
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
