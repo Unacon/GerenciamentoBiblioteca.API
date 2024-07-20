@@ -2,11 +2,11 @@
 using GerenciamentoBiblioteca.Core.Models;
 using MediatR;
 
-namespace GerenciamentoBiblioteca.Application.Commands.DeletarUsuario
+namespace GerenciamentoBiblioteca.Application.Commands.InativarUsuario
 {
-    public class DeletarUsuarioCommand : IRequest<ResultViewModel>
+    public class InativarUsuarioCommand : IRequest<ResultViewModel>
     {
-        public DeletarUsuarioCommand(int id)
+        public InativarUsuarioCommand(int id)
         {
             Id = id;
         }

@@ -8,7 +8,7 @@ namespace GerenciamentoBiblioteca.Core.Repositories
 
         Task<Usuario> GetByIdUsuarioAsync(int id);
 
-        Task DeletarUsuarioAsync(Usuario usuario);
+        Task AtualizarUsuarioAsync(Usuario usuario);
 
         Task CreateUsuarioAsync(Usuario usuario);
     }

@@ -12,10 +12,9 @@ namespace GerenciamentoBiblioteca.Application.Commands.CreateLivro
             ISBN = iSBN;
             AnoPublicacao = anoPublicacao;
         }
-
-        public string Titulo { get; private set; }
-        public string EmailAddress { get; private set; }
-        public string ISBN { get; private set; }
+        public string? Titulo { get; private set; }
+        public string? EmailAddress { get; private set; }
+        public string? ISBN { get; private set; }
         public int AnoPublicacao { get; private set; }
     }
 }

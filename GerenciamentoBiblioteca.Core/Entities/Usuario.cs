@@ -17,6 +17,17 @@ namespace GerenciamentoBiblioteca.Core.Entities
 
         public string Nome { get; private set; }
         public string Email { get; private set; }
+        public bool Ativo { get; private set; } = true;
         public List<Emprestimo> Emprestimos { get; private set; }
+
+        public void InativarUsuario()
+        {
+            this.Ativo = false;
+        }
+
+        public void AtivarUsuario()
+        {
+            this.Ativo = true;
+        }
     }
 }

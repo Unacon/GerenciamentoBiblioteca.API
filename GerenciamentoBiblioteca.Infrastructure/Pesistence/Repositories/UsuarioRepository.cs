@@ -19,12 +19,10 @@ namespace GerenciamentoBiblioteca.Infrastructure.Pesistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeletarUsuarioAsync(Usuario usuario)
+        public async Task AtualizarUsuarioAsync(Usuario usuario)
         {
-            _dbContext.Usuario.Remove(usuario);
             await _dbContext.SaveChangesAsync();
         }
-
         public async Task<List<Usuario>> GetAllUsuarioAsync()
         {
             return await _dbContext.Usuario.ToListAsync();
@@ -34,5 +32,7 @@ namespace GerenciamentoBiblioteca.Infrastructure.Pesistence.Repositories
         {
             return await _dbContext.Usuario.SingleOrDefaultAsync(u => u.Id == id);
         }
+
+       
     }
 }

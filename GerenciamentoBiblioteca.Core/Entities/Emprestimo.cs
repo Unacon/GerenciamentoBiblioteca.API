@@ -8,19 +8,23 @@ namespace GerenciamentoBiblioteca.Core.Entities
 {
     public class Emprestimo : BaseEntity
     {
-        public Emprestimo(int idUsuario, int idLivro, DateTime dataDevolucao)
+        public Emprestimo(int idUsuario, int idLivro, DateTime dataPrevistaDaDevolucao)
         {
             IdUsuario = idUsuario;
             IdLivro = idLivro;
-            DataEmprestimo = DateTime.Now;
-            DataDevolucao = DataDevolucao;
+            DataPrevistaDaDevolucao = dataPrevistaDaDevolucao;
         }
 
         public int IdUsuario { get; private set; }
         public Usuario Usuario { get; private set; }
         public int IdLivro { get; private set; }
         public Livro Livro { get; private set; }
-        public DateTime DataEmprestimo { get; private set; }
-        public DateTime DataDevolucao { get; private set; }
+        public DateTime DataEmprestimo { get; private set; } = DateTime.Now;
+        public DateTime DataPrevistaDaDevolucao { get; private set; }
+        public DateTime? DataDevolucao { get; private set; } = null;
+        public void Devolucao()
+        {
+            DataDevolucao = DateTime.Now;
+        }
     }
 }

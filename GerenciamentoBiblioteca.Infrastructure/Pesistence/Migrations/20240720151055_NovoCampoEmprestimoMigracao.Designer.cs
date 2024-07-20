@@ -4,6 +4,7 @@ using GerenciamentoBiblioteca.Infrastructure.Pesistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciamentoBiblioteca.Infrastructure.Pesistence.Migrations
 {
     [DbContext(typeof(GerenciamentoBibliotecaDbContext))]
-    partial class GerenciamentoBibliotecaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240720151055_NovoCampoEmprestimoMigracao")]
+    partial class NovoCampoEmprestimoMigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace GerenciamentoBiblioteca.Infrastructure.Pesistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("DataDevolucao")
+                    b.Property<DateTime>("DataDevolucao")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataEmprestimo")
